@@ -85,6 +85,10 @@ export default async ({
 							return ERRORS.CANNOT_DISSEMINATE_FORMAT;
 						}
 
+						if (isInvalidRecordIdentifier(req.query.identifier)) {
+							return ERRORS.ID_DOES_NOT_EXIST;
+						}
+ 
 						return;
 					}
 
@@ -94,7 +98,17 @@ export default async ({
 				function validateListMetadataFormats() {
 					if (numParams === 2) {
 						if ('identifier' in req.query) {
-							return validateMetadataPrefix(req.query.identifier);
+							if (isInvalidRecordIdentifier(req.query.identifier)) {
+								return ERRORS.ID_DOES_NOT_EXIST;
+							}
+
+							const error = validateMetadataPrefix(req.query.identifier);
+
+							if (error) {
+								return ERRORS.NO_METADATA_FORMATS;
+							}							
+							
+							return;
 						}
 
 						return ERRORS.BAD_ARGUMENT;
@@ -166,6 +180,10 @@ export default async ({
 					if (match === undefined) {
 						return ERRORS.CANNOT_DISSEMINATE_FORMAT;
 					}
+				}
+
+				function isInvalidRecordIdentifier(identifier) {
+					return identifier.startsWith(`${oaiIdentifierPrefix}/`) === false;
 				}
 			}
 
