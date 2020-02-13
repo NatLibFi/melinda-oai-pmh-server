@@ -88,7 +88,7 @@ export default async ({
 						if (isInvalidRecordIdentifier(req.query.identifier)) {
 							return ERRORS.ID_DOES_NOT_EXIST;
 						}
- 
+
 						return;
 					}
 
@@ -106,8 +106,8 @@ export default async ({
 
 							if (error) {
 								return ERRORS.NO_METADATA_FORMATS;
-							}							
-							
+							}
+
 							return;
 						}
 
