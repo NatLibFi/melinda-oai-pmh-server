@@ -135,8 +135,8 @@ export default async function ({maxResults, sets, alephLibrary, connection, form
 
 		function getParams() {
 			const setIndexes = indexes[set];
-			const startTime = from.local();
-			const endTime = until.local();
+			const startTime = from ? from.local() : from;
+			const endTime = until ? until.local() : until;
 
 			const rowCallback = row => recordRowCallback({
 				row, includeRecords, metadataPrefix
