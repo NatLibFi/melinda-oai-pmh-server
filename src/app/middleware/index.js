@@ -166,7 +166,7 @@ export default async ({
 									}
 
 									function validateTime() {
-										const time = moment.utc(value, REQUEST_DATE_STAMP_FORMATS);
+										const time = moment(value, REQUEST_DATE_STAMP_FORMATS);
 										return time.isValid() === false;
 									}
 								});

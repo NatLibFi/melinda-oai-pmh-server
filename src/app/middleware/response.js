@@ -18,7 +18,7 @@ import moment from 'moment';
 import {MARCXML} from '@natlibfi/marc-record-serializers';
 import {Utils} from '@natlibfi/melinda-commons';
 import {Parser, Builder} from 'xml2js';
-import {ERRORS, PROTOCOL_VERSION, RESPONSE_TIMESTAMP_FORMAT} from '../../constants';
+import {ERRORS, PROTOCOL_VERSION} from '../../constants';
 import {fromMARC21} from './marc-to-dc';
 
 export default ({oaiIdentifierPrefix, supportEmail}) => {
@@ -57,7 +57,7 @@ export default ({oaiIdentifierPrefix, supportEmail}) => {
 				repositoryName: [repoName],
 				baseURL: [requestUrl.split('?').shift()],
 				procotolVersion: [PROTOCOL_VERSION],
-				earliestTimestamp: [earliestTimestamp.format(RESPONSE_TIMESTAMP_FORMAT)],
+				earliestTimestamp: [earliestTimestamp.toISOString()],
 				deletedRecord: ['persistent'],
 				granularity: ['YYYY-MM-DDthh:mm:ssZ'],
 				adminEmail: [supportEmail]
@@ -114,7 +114,7 @@ export default ({oaiIdentifierPrefix, supportEmail}) => {
 						'xsi:schemaLocation': 'http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd'
 					},
 					request: [generateRequestObject()],
-					responseDate: [moment().format(RESPONSE_TIMESTAMP_FORMAT)],
+					responseDate: [moment().toISOString()],
 					...payload
 				}
 			};
@@ -179,7 +179,7 @@ export default ({oaiIdentifierPrefix, supportEmail}) => {
 		return obj;
 
 		function genAttr() {
-			const expirationDate = tokenExpirationTime.toISOString(true);
+			const expirationDate = tokenExpirationTime.toISOString();
 			return cursor === undefined ? {expirationDate} : {expirationDate, cursor};
 		}
 	}
@@ -188,7 +188,7 @@ export default ({oaiIdentifierPrefix, supportEmail}) => {
 		const obj = {
 			header: [{
 				identifier: [`${oaiIdentifierPrefix}/${id}`],
-				datestamp: time.toISOString(true)
+				datestamp: time.toISOString()
 			}]
 		};
 

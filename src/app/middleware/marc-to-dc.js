@@ -66,7 +66,7 @@ export function fromMARC21(record, {omitDeclaration = true} = {}) {
 			const fields = record.get(/^008$/);
 
 			if (fields.length > 0) {
-				const timeStr = fields[0].value.slice(0, 6);
+				const timeStr = fields[0].value.slice(0, 6);				
 				return moment(timeStr, 'YYMMDD').toISOString(true);
 			}
 		}

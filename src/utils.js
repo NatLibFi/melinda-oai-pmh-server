@@ -16,7 +16,7 @@
 
 import moment from 'moment';
 import {Utils} from '@natlibfi/melinda-commons';
-import {ERRORS, RESUMPTION_TOKEN_TIME_FORMAT} from './constants';
+import {ERRORS} from './constants';
 import ApiError from './api-error';
 
 export function generateResumptionToken({
@@ -35,9 +35,9 @@ export function generateResumptionToken({
 	}
 
 	function generateValue() {
-		const expirationTime = tokenExpirationTime.format(RESUMPTION_TOKEN_TIME_FORMAT);
+		const expirationTime = tokenExpirationTime.toString();
 
-		return `${expirationTime};${cursor};${metadataPrefix};${from ? from.format(RESUMPTION_TOKEN_TIME_FORMAT) : ''};${until ? until.format(RESUMPTION_TOKEN_TIME_FORMAT) : ''};${set || ''}`;
+		return `${expirationTime};${cursor};${metadataPrefix};${from ? from.toISOString() : ''};${until ? until.toISOString() : ''};${set || ''}`;
 	}
 }
 
@@ -45,7 +45,7 @@ export function parseResumptionToken({secretEncryptionKey, verb, token, ignoreEr
 	const {decryptString} = Utils;
 	const str = decryptToken();
 	const [expirationTime, cursor, metadataPrefix, from, until, set] = str.split(/;/g);
-	const expires = moment(expirationTime, RESUMPTION_TOKEN_TIME_FORMAT, true);
+	const expires = moment(expirationTime);
 
 	if (expires.isValid() && moment().isBefore(expires)) {
 		return filter({cursor, metadataPrefix, set, from, until});
