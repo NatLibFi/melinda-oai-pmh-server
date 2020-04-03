@@ -30,3 +30,15 @@ steps:
       from_secret: docker_password
 image_pull_secrets:
 - pull_docker_config
+---
+kind: secret
+name: docker_username
+data: BAQ6GAhFcEzRH6YclwjhnKCXevpiFc0hbL9RCYxV0FFaWqH9x4ap28XYRPNzy46Jv6ZKv/T5MkpYbszIhwMo6w==
+---
+kind: secret
+name: docker_password
+data: zaCML0PJjkMm4qyGTpTdnhPlQhsZfotPYJw4U87irNjPPBwh4KxRv22Nwcf5WMhW3lZzx8U98l+HYKHlrC41xl6KHnifi8mDeJ0AdhTRtf0MWsMsouyyI8UMO98=
+---
+kind: secret
+name: pull_docker_config
+data: ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICJkR2xyWlN0cllXNXpZV3hzYVhOcmFYSnFZWE4wYjE5a2NtOXVaVjl0Wld4cGJtUmhPa1JRTUZkYVFWRXdXRTFRVFZoT05qaERRa0pRUmtoUlMwVktUbHBUVUVoTlRrOU9XRmRHVTBJMFZqTTROMDVVVmpWT1ZqWTRTakUxVUZoVlFWTldVRk09IiwKICAgICAgImVtYWlsIjogIiIKICAgIH0KICB9Cn0=
